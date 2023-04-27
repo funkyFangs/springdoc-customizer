@@ -1,0 +1,80 @@
+[versions]
+
+# AssertJ
+assertj = '3.24.2'
+
+# Guava
+guava = '31.1-jre'
+
+# Jakarta
+jakarta-annotation = '2.1.1'
+jakarta-validation = '3.0.2'
+
+# JUnit
+junit = '5.9.2'
+
+# Lombok
+lombok-plugin = '8.0.1'
+
+# Reflections
+reflections = '0.10.2'
+
+# SLF4J
+slf4j = '2.0.7'
+
+# Spring
+spring = '6.0.7'
+spring-boot = '3.0.5'
+
+# SpringDoc
+springdoc = '2.1.0'
+
+# Swagger
+swagger = '2.2.9'
+
+[libraries]
+
+# AssertJ
+assertj-core = {group = 'org.assertj', name = 'assertj-core', version.ref = 'assertj'}
+
+# Guava
+guava = {group = 'com.google.guava', name = 'guava', version.ref = 'guava'}
+
+# Jakarta
+jakarta-annotation = {group = 'jakarta.annotation', name = 'jakarta.annotation-api', version.ref = 'jakarta-annotation'}
+jakarta-validation = {group = 'jakarta.validation', name = 'jakarta.validation-api', version.ref = 'jakarta-validation'}
+
+# JUnit
+junit-jupiter-api = {group = 'org.junit.jupiter', name = 'junit-jupiter-api', version.ref = 'junit'}
+junit-jupiter-engine = {group = 'org.junit.jupiter', name = 'junit-jupiter-engine', version.ref = 'junit'}
+junit-jupiter-params = {group = 'org.junit.jupiter', name = 'junit-jupiter-params', version.ref = 'junit'}
+
+# Reflections
+reflections = {group = 'org.reflections', name = 'reflections', version.ref = 'reflections'}
+
+# SLF4J
+slf4j-api = {group = 'org.slf4j', name = 'slf4j-api', version.ref = 'slf4j'}
+
+# Spring
+spring-boot-autoconfigure = {group = 'org.springframework.boot', name = 'spring-boot-autoconfigure', version.ref = 'spring-boot'}
+spring-boot-autoconfigure-processor = {group = 'org.springframework.boot', name = 'spring-boot-autoconfigure-processor', version.ref = 'spring-boot'}
+spring-boot-starter-validation = {group = 'org.springframework.boot', name = 'spring-boot-starter-validation', version.ref = 'spring-boot'}
+spring-boot-starter-web = {group = 'org.springframework.boot', name = 'spring-boot-starter-web', version.ref = 'spring-boot'}
+spring-boot-starter-webflux = {group = 'org.springframework.boot', name = 'spring-boot-starter-webflux', version.ref = 'spring-boot'}
+spring-web = {group = 'org.springframework', name = 'spring-web', version.ref = 'spring'}
+
+# SpringDoc
+springdoc-openapi-starter-common = {group = 'org.springdoc', name = 'springdoc-openapi-starter-common', version.ref = 'springdoc'}
+springdoc-openapi-starter-webmvc-ui = {group = 'org.springdoc', name = 'springdoc-openapi-starter-webmvc-ui', version.ref = 'springdoc'}
+springdoc-openapi-starter-webflux-ui = {group = 'org.springdoc', name = 'springdoc-openapi-starter-webflux-ui', version.ref = 'springdoc'}
+
+# Swagger
+swagger-annotations = {group = 'io.swagger.core.v3', name = 'swagger-annotations', version.ref = 'swagger'}
+
+[plugins]
+
+# Lombok
+lombok = {id = 'io.freefair.lombok', version.ref = 'lombok-plugin'}
+
+# Spring
+spring-boot = {id = 'org.springframework.boot', version.ref = 'spring-boot'}

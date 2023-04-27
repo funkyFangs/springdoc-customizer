@@ -1,0 +1,13 @@
+springdoc:
+  packages-to-scan:
+    - 'io.funky.fangs.springdoc.customizer.pets.controller'
+  swagger-ui:
+    use-root-path: true
+    operationsSorter: 'alpha'
+    tagsSorter: 'alpha'
+  default-consumes-media-type: 'application/json'
+  default-produces-media-type: 'application/json'
+  customizer:
+    examples:
+      packages-to-scan:
+        - 'io.funky.fangs.springdoc.customizer.pets.examples'

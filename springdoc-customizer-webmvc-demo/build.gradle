@@ -1,0 +1,25 @@
+plugins {
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.lombok)
+}
+
+dependencies {
+    // Jakarta
+    implementation libs.jakarta.annotation
+
+    // Spring
+    annotationProcessor libs.spring.boot.autoconfigure.processor
+    implementation libs.spring.boot.starter.web
+    implementation libs.spring.boot.starter.webflux
+    implementation libs.spring.boot.starter.validation
+
+    // SpringDoc
+    implementation libs.springdoc.openapi.starter.webmvc.ui
+
+    // SpringDoc Customizer
+    implementation project(':springdoc-customizer')
+}
+
+springBoot {
+    buildInfo()
+}
