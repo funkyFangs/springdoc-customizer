@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e3bd0a12-676d-4460-9b1a-405f92e4d2dc" name="Changes" comment="Create IntelliJ project files">
-      <change beforePath="$PROJECT_DIR$/gradle.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workspace.xml" beforeDir="false" />
+    <list default="true" id="e3bd0a12-676d-4460-9b1a-405f92e4d2dc" name="Changes" comment="Move project files to .idea folder">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/gradle.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/gradle.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,7 +100,21 @@
       <option name="project" value="LOCAL" />
       <updated>1682641740100</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Move project files to .idea folder">
+      <created>1682899288934</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1682899288934</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Move project files to .idea folder">
+      <created>1682899425761</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1682899425761</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -130,7 +142,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Create IntelliJ project files" />
-    <option name="LAST_COMMIT_MESSAGE" value="Create IntelliJ project files" />
+    <MESSAGE value="Move project files to .idea folder" />
+    <option name="LAST_COMMIT_MESSAGE" value="Move project files to .idea folder" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
