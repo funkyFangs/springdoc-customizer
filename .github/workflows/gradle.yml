@@ -18,7 +18,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: windowsUp-latest
+    runs-on: ubuntu-latest
     steps:
     # Checkout project
     - uses: actions/checkout@v3
