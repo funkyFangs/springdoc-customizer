@@ -20,21 +20,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    # Checkout project
     - uses: actions/checkout@v3
-    # Setup JDK
-    - name: Set up JDK 17
+    - name: Set Up JDK
       uses: actions/setup-java@v3
       with:
         java-version: '17'
         distribution: 'zulu'
-    # Ensure Gradle is present
-    - name: Validate Gradle wrapper
+    - name: Validate Gradle Wrapper
       uses: gradle/wrapper-validation-action@ccb4328a959376b642e027874838f60f8e596de3
-    - name: Build Gradle wrapper
+    - name: Add gradlew Execute Permissions
+    - name: Build Gradle Wrapper
       run: './gradlew wrapper'
-    # Run build
     - name: Run Gradle Build
-      uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
-      with:
-        arguments: build
+      run: './gradlew build'
