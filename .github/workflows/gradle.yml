@@ -5,32 +5,34 @@
 # This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
 
-name: Build Project
+name: 'Build Project'
 
 on:
   push:
-    branches: [ "develop" ]
+    branches:
+      - 'develop'
   pull_request:
-    branches: [ "develop" ]
+    branches:
+      - 'develop'
 
 permissions:
-  contents: read
+  contents: 'read'
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: 'ubuntu-latest'
     steps:
-    - uses: actions/checkout@v3
-    - name: Set Up JDK
-      uses: actions/setup-java@v3
+    - uses: 'actions/checkout@v3'
+    - name: 'Set Up JDK'
+      uses: 'actions/setup-java@v3'
       with:
-        java-version: '17'
+        java-version: 17
         distribution: 'zulu'
-    - name: Validate Gradle Wrapper
-      uses: gradle/wrapper-validation-action@ccb4328a959376b642e027874838f60f8e596de3
-    - name: Add gradlew Execute Permissions
+    - name: 'Validate Gradle Wrapper'
+      uses: 'gradle/wrapper-validation-action@ccb4328a959376b642e027874838f60f8e596de3'
+    - name: 'Add gradlew Execute Permissions'
       run: 'chmod +x ./gradlew'
-    - name: Build Gradle Wrapper
+    - name: 'Build Gradle Wrapper'
       run: './gradlew wrapper'
-    - name: Run Gradle Build
+    - name: 'Run Gradle Build'
       run: './gradlew build'
