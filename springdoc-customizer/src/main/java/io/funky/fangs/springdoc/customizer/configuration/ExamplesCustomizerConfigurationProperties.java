@@ -6,6 +6,10 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springdoc.core.properties.SpringDocConfigProperties;
 
+import java.util.Set;
+
+import static java.util.Collections.emptySet;
+
 /**
  * Configuration properties related the {@link ExamplesOpenApiCustomizer}.
  *
@@ -22,7 +26,7 @@ public class ExamplesCustomizerConfigurationProperties {
     /**
      * Packages to scan for examples annotated with {@link ExampleDetails}.
      */
-    private String[] packagesToScan = {};
+    private Set<String> packagesToScan = emptySet();
 
     /**
      * Determines if examples should be validated based on a {@link Validator}, if available. Invalid examples will
