@@ -25,8 +25,8 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 import static io.funky.fangs.springdoc.customizer.utilities.ExampleUtilities.*;
-import static io.funky.fangs.springdoc.customizer.utilities.ReflectionUtilities.getFieldValue;
-import static io.funky.fangs.springdoc.customizer.utilities.RequestMappingUtilities.getRequestMappingPaths;
+import static io.funky.fangs.springdoc.customizer.utilities.ReflectionUtilities.*;
+import static io.funky.fangs.springdoc.customizer.utilities.RequestMappingUtilities.*;
 import static lombok.AccessLevel.PACKAGE;
 
 /**
