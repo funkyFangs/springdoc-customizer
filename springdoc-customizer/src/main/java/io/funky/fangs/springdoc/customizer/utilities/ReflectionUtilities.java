@@ -37,7 +37,7 @@ public class ReflectionUtilities {
      */
     @Nullable
     @SuppressWarnings("unchecked")
-    public <T> T getFieldValue(Field field, T instance) {
+    public <T> T getFieldValue(Field field, Object instance) {
         try {
             var canAccess = field.canAccess(instance);
 

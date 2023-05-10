@@ -1,5 +1,6 @@
 package io.funky.fangs.springdoc.customizer.configuration;
 
+import com.google.common.annotations.VisibleForTesting;
 import io.funky.fangs.springdoc.customizer.annotations.ExampleDetails;
 import io.funky.fangs.springdoc.customizer.annotations.ExampleTarget;
 import io.funky.fangs.springdoc.customizer.annotations.ExampleType;
@@ -11,6 +12,7 @@ import io.swagger.v3.oas.models.media.Content;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.validation.Validator;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.reflections.Reflections;
 import org.reflections.scanners.Scanners;
@@ -25,6 +27,7 @@ import java.util.stream.Stream;
 import static io.funky.fangs.springdoc.customizer.utilities.ExampleUtilities.*;
 import static io.funky.fangs.springdoc.customizer.utilities.ReflectionUtilities.*;
 import static io.funky.fangs.springdoc.customizer.utilities.RequestMappingUtilities.*;
+import static lombok.AccessLevel.PACKAGE;
 
 /**
  * A {@link OpenApiCustomizer} which injects examples annotated with {@link ExampleDetails}
@@ -34,6 +37,8 @@ import static io.funky.fangs.springdoc.customizer.utilities.RequestMappingUtilit
  * @since 2.1.0
  */
 @Slf4j
+@VisibleForTesting
+@Getter(PACKAGE)
 public class ExamplesOpenApiCustomizer implements OpenApiCustomizer {
     @Nonnull
     private final String group;
@@ -59,7 +64,7 @@ public class ExamplesOpenApiCustomizer implements OpenApiCustomizer {
                                      @Nullable String defaultConsumesMediaType,
                                      @Nullable String defaultProducesMediaType,
                                      @Nullable Validator validator,
-                                     String... packagesToScan) {
+                                     Collection<String> packagesToScan) {
         this.group = group == null ? "" : group;
         this.defaultConsumesMediaType = defaultConsumesMediaType;
         this.defaultProducesMediaType = defaultProducesMediaType;

@@ -16,11 +16,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Stream;
+import java.util.Optional;
 
 import static com.google.common.collect.ImmutableListMultimap.toImmutableListMultimap;
+import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.toMap;
 import static java.util.stream.Collectors.toSet;
 
@@ -110,10 +113,9 @@ public class ExampleUtilities {
      */
     public Collection<String> getMediaTypes(ExampleType type, @Nullable String defaultConsumesMediaType,
                                             @Nullable String defaultProducesMediaType) {
-        return Stream.of(Stream.of(type.mediaTypes()),
-                        Stream.ofNullable(defaultConsumesMediaType).filter(ignored -> type.value() == Type.REQUEST),
-                        Stream.ofNullable(defaultProducesMediaType).filter(ignored -> type.value() == Type.RESPONSE))
-                .flatMap(Function.identity())
+        return Stream.concat(Stream.of(type.mediaTypes()),
+                Stream.of(defaultConsumesMediaType, defaultProducesMediaType)
+                        .filter(Objects::nonNull))
                 .collect(toSet());
     }
 
@@ -126,12 +128,12 @@ public class ExampleUtilities {
      */
     public Collection<Content> getContents(ExampleType type, Operation operation) {
         return switch (type.value()) {
-            case REQUEST -> Stream.ofNullable(operation)
+            case REQUEST -> Optional.ofNullable(operation)
                     .map(Operation::getRequestBody)
-                    .filter(Objects::nonNull)
                     // Qualified because Spring's @RequestBody is imported
                     .map(io.swagger.v3.oas.models.parameters.RequestBody::getContent)
-                    .toList();
+                    .map(List::of)
+                    .orElse(emptyList());
             case RESPONSE -> {
                 var responses = Stream.of(type.responses())
                         .map(HttpStatus::value)
