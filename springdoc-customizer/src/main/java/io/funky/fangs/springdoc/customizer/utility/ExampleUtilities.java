@@ -1,9 +1,10 @@
-package io.funky.fangs.springdoc.customizer.utilities;
+package io.funky.fangs.springdoc.customizer.utility;
 
 import com.google.common.collect.Multimap;
-import io.funky.fangs.springdoc.customizer.annotations.ExampleMethod;
-import io.funky.fangs.springdoc.customizer.annotations.ExampleType;
-import io.funky.fangs.springdoc.customizer.annotations.ExampleType.Type;
+import io.funky.fangs.springdoc.customizer.annotation.ExampleMethod;
+import io.funky.fangs.springdoc.customizer.annotation.ExampleType;
+import io.funky.fangs.springdoc.customizer.annotation.ExampleType.Type;
+import io.funky.fangs.springdoc.customizer.processor.ExamplesProcessor;
 import io.swagger.v3.oas.models.Operation;
 import io.swagger.v3.oas.models.media.Content;
 import io.swagger.v3.oas.models.responses.ApiResponse;
@@ -13,16 +14,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.io.IOException;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Stream;
-import java.util.Optional;
 
 import static com.google.common.collect.ImmutableListMultimap.toImmutableListMultimap;
+import static io.funky.fangs.springdoc.customizer.processor.ExamplesProcessor.*;
 import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.toMap;
 import static java.util.stream.Collectors.toSet;
@@ -149,5 +150,36 @@ public class ExampleUtilities {
                         .toList();
             }
         };
+    }
+
+    public Collection<Field> getExampleFields() {
+        try {
+            var examplesMap = OBJECT_MAPPER.readValue(ExamplesProcessor.class.getResource(EXAMPLES_FILE_NAME),
+                    EXAMPLES_MAP_TYPE_REFERENCE);
+
+            var result = new ArrayList<Field>();
+            for (var entry : examplesMap.entrySet()) {
+                try {
+                    var examplesClass = Class.forName(entry.getKey());
+
+                    for (var exampleFieldName : entry.getValue()) {
+                        try {
+                            result.add(examplesClass.getDeclaredField(exampleFieldName));
+                        }
+                        catch (NoSuchFieldException ignored) {
+                            // Field could not be found, so move on
+                        }
+                    }
+                }
+                catch (ClassNotFoundException ignored) {
+                    // Class could not be found, so just move on
+                }
+            }
+
+            return result;
+        }
+        catch (IOException ignored) {
+            return emptyList();
+        }
     }
 }

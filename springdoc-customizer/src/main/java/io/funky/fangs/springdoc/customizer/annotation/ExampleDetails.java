@@ -1,7 +1,6 @@
-package io.funky.fangs.springdoc.customizer.annotations;
+package io.funky.fangs.springdoc.customizer.annotation;
 
 import io.swagger.v3.oas.models.OpenAPI;
-import org.springframework.aot.hint.annotation.Reflective;
 
 import java.lang.annotation.*;
 

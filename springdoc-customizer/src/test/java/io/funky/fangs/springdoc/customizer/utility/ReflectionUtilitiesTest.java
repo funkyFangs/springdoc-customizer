@@ -1,6 +1,5 @@
-package io.funky.fangs.springdoc.customizer.utilties;
+package io.funky.fangs.springdoc.customizer.utility;
 
-import io.funky.fangs.springdoc.customizer.utilities.ReflectionUtilities;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

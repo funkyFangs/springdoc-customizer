@@ -17,7 +17,9 @@ dependencies {
     implementation libs.springdoc.openapi.starter.webmvc.ui
 
     // SpringDoc Customizer
+    annotationProcessor project(':springdoc-customizer')
     implementation project(':springdoc-customizer')
+    testAnnotationProcessor project(':springdoc-customizer')
 }
 
 springBoot {

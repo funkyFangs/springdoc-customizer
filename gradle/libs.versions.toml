@@ -19,9 +19,6 @@ lombok-plugin = '8.0.1'
 # Mockito
 mockito = '5.3.1'
 
-# Reflections
-reflections = '0.10.2'
-
 # SLF4J
 slf4j = '2.0.7'
 
@@ -56,15 +53,13 @@ junit-jupiter-params = {group = 'org.junit.jupiter', name = 'junit-jupiter-param
 mockito-core = {group = 'org.mockito', name = 'mockito-core', version.ref = 'mockito'}
 mockito-junit-jupiter = {group = 'org.mockito', name ='mockito-junit-jupiter', version.ref = 'mockito'}
 
-# Reflections
-reflections = {group = 'org.reflections', name = 'reflections', version.ref = 'reflections'}
-
 # SLF4J
 slf4j-api = {group = 'org.slf4j', name = 'slf4j-api', version.ref = 'slf4j'}
 
 # Spring
 spring-boot-autoconfigure = {group = 'org.springframework.boot', name = 'spring-boot-autoconfigure', version.ref = 'spring-boot'}
 spring-boot-autoconfigure-processor = {group = 'org.springframework.boot', name = 'spring-boot-autoconfigure-processor', version.ref = 'spring-boot'}
+spring-boot-starter-test = {group = 'org.springframework.boot', name = 'spring-boot-starter-test', version.ref = 'spring-boot'}
 spring-boot-starter-validation = {group = 'org.springframework.boot', name = 'spring-boot-starter-validation', version.ref = 'spring-boot'}
 spring-boot-starter-web = {group = 'org.springframework.boot', name = 'spring-boot-starter-web', version.ref = 'spring-boot'}
 spring-boot-starter-webflux = {group = 'org.springframework.boot', name = 'spring-boot-starter-webflux', version.ref = 'spring-boot'}

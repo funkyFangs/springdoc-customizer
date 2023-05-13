@@ -1,4 +1,4 @@
-package io.funky.fangs.springdoc.customizer.utilities;
+package io.funky.fangs.springdoc.customizer.utility;
 
 import lombok.experimental.UtilityClass;
 import org.springframework.core.annotation.AnnotatedElementUtils;
