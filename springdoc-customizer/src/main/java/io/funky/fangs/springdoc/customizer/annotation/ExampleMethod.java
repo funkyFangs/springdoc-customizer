@@ -1,4 +1,4 @@
-package io.funky.fangs.springdoc.customizer.annotations;
+package io.funky.fangs.springdoc.customizer.annotation;
 
 import org.springframework.stereotype.Controller;
 

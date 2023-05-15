@@ -1,6 +1,5 @@
-package io.funky.fangs.springdoc.customizer.utilties;
+package io.funky.fangs.springdoc.customizer.utility;
 
-import io.funky.fangs.springdoc.customizer.utilities.RequestMappingUtilities;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 

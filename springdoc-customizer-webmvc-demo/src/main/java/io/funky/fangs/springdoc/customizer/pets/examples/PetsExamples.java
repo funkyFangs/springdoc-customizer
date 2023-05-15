@@ -1,9 +1,9 @@
 package io.funky.fangs.springdoc.customizer.pets.examples;
 
-import io.funky.fangs.springdoc.customizer.annotations.ExampleDetails;
-import io.funky.fangs.springdoc.customizer.annotations.ExampleMethod;
-import io.funky.fangs.springdoc.customizer.annotations.ExampleTarget;
-import io.funky.fangs.springdoc.customizer.annotations.ExampleType;
+import io.funky.fangs.springdoc.customizer.annotation.ExampleDetails;
+import io.funky.fangs.springdoc.customizer.annotation.ExampleMethod;
+import io.funky.fangs.springdoc.customizer.annotation.ExampleTarget;
+import io.funky.fangs.springdoc.customizer.annotation.ExampleType;
 import io.funky.fangs.springdoc.customizer.pets.controller.PetsController;
 import io.funky.fangs.springdoc.customizer.pets.model.Pet;
 import io.funky.fangs.springdoc.customizer.pets.model.Species;
@@ -11,8 +11,8 @@ import io.funky.fangs.springdoc.customizer.pets.model.Species;
 import java.time.LocalDate;
 import java.time.Month;
 
-import static io.funky.fangs.springdoc.customizer.annotations.ExampleType.Type.REQUEST;
-import static io.funky.fangs.springdoc.customizer.annotations.ExampleType.Type.RESPONSE;
+import static io.funky.fangs.springdoc.customizer.annotation.ExampleType.Type.REQUEST;
+import static io.funky.fangs.springdoc.customizer.annotation.ExampleType.Type.RESPONSE;
 import static org.springframework.http.HttpStatus.OK;
 
 @SuppressWarnings("unused") // Examples are targeted reflectively

@@ -1,4 +1,4 @@
-package io.funky.fangs.springdoc.customizer.utilities;
+package io.funky.fangs.springdoc.customizer.utility;
 
 import jakarta.annotation.Nullable;
 import lombok.experimental.UtilityClass;

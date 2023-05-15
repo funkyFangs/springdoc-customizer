@@ -1,14 +1,9 @@
 package io.funky.fangs.springdoc.customizer.configuration;
 
-import io.funky.fangs.springdoc.customizer.annotations.ExampleDetails;
 import jakarta.validation.Validator;
 import lombok.Getter;
 import lombok.Setter;
 import org.springdoc.core.properties.SpringDocConfigProperties;
-
-import java.util.Set;
-
-import static java.util.Collections.emptySet;
 
 /**
  * Configuration properties related the {@link ExamplesOpenApiCustomizer}.
@@ -22,11 +17,6 @@ import static java.util.Collections.emptySet;
 @Setter
 public class ExamplesCustomizerConfigurationProperties {
     public static final String PREFIX = SpringDocCustomizerConfigurationProperties.PREFIX + ".examples";
-
-    /**
-     * Packages to scan for examples annotated with {@link ExampleDetails}.
-     */
-    private Set<String> packagesToScan = emptySet();
 
     /**
      * Determines if examples should be validated based on a {@link Validator}, if available. Invalid examples will

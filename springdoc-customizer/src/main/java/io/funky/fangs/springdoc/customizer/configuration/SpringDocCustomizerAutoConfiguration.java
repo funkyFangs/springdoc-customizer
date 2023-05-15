@@ -50,8 +50,7 @@ public class SpringDocCustomizerAutoConfiguration {
                 examplesConfigurationProperties.isIncludeDefaultProducesMediaType()
                         ? springDocConfigProperties.getDefaultProducesMediaType()
                         : null,
-                examplesConfigurationProperties.isValidateExamples() ? validator : null,
-                examplesConfigurationProperties.getPackagesToScan());
+                examplesConfigurationProperties.isValidateExamples() ? validator : null);
     }
 
     /**

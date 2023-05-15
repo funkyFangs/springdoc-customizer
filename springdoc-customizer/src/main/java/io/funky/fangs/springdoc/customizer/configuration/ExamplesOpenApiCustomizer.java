@@ -1,10 +1,11 @@
 package io.funky.fangs.springdoc.customizer.configuration;
 
 import com.google.common.annotations.VisibleForTesting;
-import io.funky.fangs.springdoc.customizer.annotations.ExampleDetails;
-import io.funky.fangs.springdoc.customizer.annotations.ExampleTarget;
-import io.funky.fangs.springdoc.customizer.annotations.ExampleType;
-import io.funky.fangs.springdoc.customizer.utilities.RequestMappingUtilities;
+import io.funky.fangs.springdoc.customizer.annotation.ExampleDetails;
+import io.funky.fangs.springdoc.customizer.annotation.ExampleTarget;
+import io.funky.fangs.springdoc.customizer.annotation.ExampleType;
+import io.funky.fangs.springdoc.customizer.utility.ExampleUtilities;
+import io.funky.fangs.springdoc.customizer.utility.RequestMappingUtilities;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.PathItem;
 import io.swagger.v3.oas.models.Paths;
@@ -14,8 +15,6 @@ import jakarta.annotation.Nullable;
 import jakarta.validation.Validator;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.reflections.Reflections;
-import org.reflections.scanners.Scanners;
 import org.springdoc.core.customizers.OpenApiCustomizer;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -24,9 +23,9 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import static io.funky.fangs.springdoc.customizer.utilities.ExampleUtilities.*;
-import static io.funky.fangs.springdoc.customizer.utilities.ReflectionUtilities.*;
-import static io.funky.fangs.springdoc.customizer.utilities.RequestMappingUtilities.*;
+import static io.funky.fangs.springdoc.customizer.utility.ExampleUtilities.*;
+import static io.funky.fangs.springdoc.customizer.utility.ReflectionUtilities.*;
+import static io.funky.fangs.springdoc.customizer.utility.RequestMappingUtilities.*;
 import static lombok.AccessLevel.PACKAGE;
 
 /**
@@ -52,24 +51,18 @@ public class ExamplesOpenApiCustomizer implements OpenApiCustomizer {
     @Nullable
     private final Validator validator;
 
-    @Nonnull
-    private final Reflections reflections;
-
     /**
      * @param group the group of a grouped REST API, or null
      * @param validator the {@link Validator} used to validate examples, or null
-     * @param packagesToScan the packages to scan for examples
      */
     public ExamplesOpenApiCustomizer(@Nullable String group,
                                      @Nullable String defaultConsumesMediaType,
                                      @Nullable String defaultProducesMediaType,
-                                     @Nullable Validator validator,
-                                     Collection<String> packagesToScan) {
+                                     @Nullable Validator validator) {
         this.group = group == null ? "" : group;
         this.defaultConsumesMediaType = defaultConsumesMediaType;
         this.defaultProducesMediaType = defaultProducesMediaType;
         this.validator = validator;
-        this.reflections = new Reflections(Objects.requireNonNull(packagesToScan), Scanners.FieldsAnnotated);
     }
 
     @Override
@@ -77,7 +70,7 @@ public class ExamplesOpenApiCustomizer implements OpenApiCustomizer {
         var paths = openApi.getPaths();
 
         if (paths != null)
-            for (var field : reflections.getFieldsAnnotatedWith(ExampleDetails.class)) {
+            for (var field : ExampleUtilities.getExampleFields()) {
                 var exampleDetails = field.getAnnotation(ExampleDetails.class);
                 var value = getFieldValue(field);
 
