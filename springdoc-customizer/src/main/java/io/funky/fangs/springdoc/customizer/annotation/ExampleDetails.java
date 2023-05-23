@@ -2,7 +2,10 @@ package io.funky.fangs.springdoc.customizer.annotation;
 
 import io.swagger.v3.oas.models.OpenAPI;
 
-import java.lang.annotation.*;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * An annotation for examples which should be injected into the {@link OpenAPI} specification.
@@ -10,9 +13,8 @@ import java.lang.annotation.*;
  * @author Harper Price
  * @since 2.1.0
  */
-// TODO: Investigate @Reflective annotation
 @Target(ElementType.FIELD)
-@Retention(RetentionPolicy.RUNTIME)
+@Retention(RetentionPolicy.SOURCE)
 public @interface ExampleDetails {
     /**
      * The name of an example.

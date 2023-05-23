@@ -15,7 +15,7 @@ import java.lang.annotation.Target;
  * @since 2.1.0
  */
 @Target(ElementType.ANNOTATION_TYPE)
-@Retention(RetentionPolicy.RUNTIME)
+@Retention(RetentionPolicy.SOURCE)
 public @interface ExampleType {
     /**
      * The type of the example.

@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
  * @since 2.1.0
  */
 @Target(ElementType.ANNOTATION_TYPE)
-@Retention(RetentionPolicy.RUNTIME)
+@Retention(RetentionPolicy.SOURCE)
 public @interface ExampleTarget {
     /**
      * The {@link Controller} to target.
