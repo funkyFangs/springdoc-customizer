@@ -22,5 +22,5 @@ public class SpringDocCustomizerConfigurationProperties {
     public static final String PREFIX = Constants.SPRINGDOC_PREFIX + ".customizer";
 
     @NestedConfigurationProperty
-    private ExamplesCustomizerConfigurationProperties examples;
+    private ExamplesCustomizerConfigurationProperties examples = new ExamplesCustomizerConfigurationProperties();
 }
