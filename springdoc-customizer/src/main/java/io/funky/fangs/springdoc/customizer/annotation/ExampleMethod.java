@@ -16,7 +16,7 @@ import java.lang.reflect.Method;
  * @since 2.1.0
  */
 @Target(ElementType.ANNOTATION_TYPE)
-@Retention(RetentionPolicy.RUNTIME)
+@Retention(RetentionPolicy.SOURCE)
 public @interface ExampleMethod {
     /**
      * The name of the method to target. This method must have an associated HTTP mapping

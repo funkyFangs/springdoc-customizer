@@ -2,30 +2,30 @@ package io.funky.fangs.springdoc.customizer.configuration;
 
 import com.google.common.annotations.VisibleForTesting;
 import io.funky.fangs.springdoc.customizer.annotation.ExampleDetails;
-import io.funky.fangs.springdoc.customizer.annotation.ExampleTarget;
-import io.funky.fangs.springdoc.customizer.annotation.ExampleType;
+import io.funky.fangs.springdoc.customizer.model.ExampleDetailsRecord;
+import io.funky.fangs.springdoc.customizer.model.ExampleTargetRecord;
+import io.funky.fangs.springdoc.customizer.model.ExampleTypeRecord;
+import io.funky.fangs.springdoc.customizer.processor.ExamplesProcessor;
 import io.funky.fangs.springdoc.customizer.utility.ExampleUtilities;
-import io.funky.fangs.springdoc.customizer.utility.RequestMappingUtilities;
+import io.funky.fangs.springdoc.customizer.utility.ReflectionUtilities;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.PathItem;
 import io.swagger.v3.oas.models.Paths;
 import io.swagger.v3.oas.models.media.Content;
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import jakarta.validation.Validator;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springdoc.core.customizers.OpenApiCustomizer;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.lang.reflect.Field;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import static io.funky.fangs.springdoc.customizer.utility.ExampleUtilities.*;
-import static io.funky.fangs.springdoc.customizer.utility.ReflectionUtilities.*;
-import static io.funky.fangs.springdoc.customizer.utility.RequestMappingUtilities.*;
+import static java.util.Collections.emptyList;
 import static lombok.AccessLevel.PACKAGE;
 
 /**
@@ -39,27 +39,21 @@ import static lombok.AccessLevel.PACKAGE;
 @VisibleForTesting
 @Getter(PACKAGE)
 public class ExamplesOpenApiCustomizer implements OpenApiCustomizer {
-    @Nonnull
     private final String group;
-
-    @Nullable
     private final String defaultConsumesMediaType;
-
-    @Nullable
     private final String defaultProducesMediaType;
-
-    @Nullable
     private final Validator validator;
+    private final Map<Field, ExampleDetailsRecord> exampleFields = ExamplesProcessor.getExampleFields();
 
     /**
      * @param group the group of a grouped REST API, or null
      * @param validator the {@link Validator} used to validate examples, or null
      */
-    public ExamplesOpenApiCustomizer(@Nullable String group,
-                                     @Nullable String defaultConsumesMediaType,
-                                     @Nullable String defaultProducesMediaType,
-                                     @Nullable Validator validator) {
-        this.group = group == null ? "" : group;
+    public ExamplesOpenApiCustomizer(String group,
+                                     String defaultConsumesMediaType,
+                                     String defaultProducesMediaType,
+                                     Validator validator) {
+        this.group = Optional.ofNullable(group).orElse("");
         this.defaultConsumesMediaType = defaultConsumesMediaType;
         this.defaultProducesMediaType = defaultProducesMediaType;
         this.validator = validator;
@@ -70,11 +64,11 @@ public class ExamplesOpenApiCustomizer implements OpenApiCustomizer {
         var paths = openApi.getPaths();
 
         if (paths != null)
-            for (var field : ExampleUtilities.getExampleFields()) {
-                var exampleDetails = field.getAnnotation(ExampleDetails.class);
-                var value = getFieldValue(field);
+            for (var entry : exampleFields.entrySet()) {
+                var value = ReflectionUtilities.getFieldValue(entry.getKey());
 
                 if (isValid(value)) {
+                    var exampleDetails = entry.getValue();
                     var example = new NamedExample()
                             .name(exampleDetails.name())
                             .summary(exampleDetails.summary())
@@ -92,43 +86,42 @@ public class ExamplesOpenApiCustomizer implements OpenApiCustomizer {
         return value != null && (validator == null || validator.validate(value).isEmpty());
     }
 
-    private void injectExample(NamedExample example, ExampleTarget target, Paths specificationPaths) {
+    private void injectExample(NamedExample example, ExampleTargetRecord target, Paths specificationPaths) {
         var exampleClass = example.getValue().getClass();
-        var controller = target.controller();
-        var controllerPaths = getRequestMappingPaths(controller)
+        var controller = ReflectionUtilities.getClassSafely(target.controller());
+        var controllerPaths = ExampleUtilities.getRequestMappingPaths(controller)
                 .stream()
                 .map(group::concat)
                 .distinct()
                 .toList();
 
-        var exampleMethods = getControllerMethods(controller, target.methods());
+        var exampleMethods = ExampleUtilities.getControllerMethods(controller, exampleClass, target.methods());
 
-        for (var exampleMethod : exampleMethods.keySet()) {
-            var methodRequestMappings = exampleMethods.get(exampleMethod)
+        for (var entry : exampleMethods.entrySet()) {
+            var methodRequestMappings = Optional.ofNullable(entry.getValue())
+                    .orElse(emptyList())
                     .stream()
-                    .filter(method -> isRequestExample(exampleMethod) && hasRequestParameter(method, exampleClass)
-                            || isResponseExample(exampleMethod) && hasResponseType(method, exampleClass))
-                    .map(RequestMappingUtilities::getRequestMapping)
+                    .map(ExampleUtilities::getRequestMapping)
                     .toList();
 
             for (var methodRequestMapping : methodRequestMappings) {
-                var paths = getRequestMappingPaths(methodRequestMapping).stream()
+                var paths = ExampleUtilities.getRequestMappingPaths(methodRequestMapping).stream()
                         .flatMap(methodPath -> controllerPaths.stream()
                                 .map(controllerPath -> controllerPath + methodPath))
                         .distinct()
-                        .map(RequestMappingUtilities::normalizePath)
+                        .map(ExampleUtilities::normalizePath)
                         .toList();
 
                 paths.stream()
                         .map(specificationPaths::get)
                         .filter(Objects::nonNull)
-                        .forEach(pathItem -> injectIntoPath(example, pathItem, exampleMethod.types(),
+                        .forEach(pathItem -> injectIntoPath(example, pathItem, entry.getKey().types(),
                                 methodRequestMapping.method()));
             }
         }
     }
 
-    private void injectIntoPath(NamedExample example, PathItem pathItem, ExampleType[] exampleTypes,
+    private void injectIntoPath(NamedExample example, PathItem pathItem, Collection<ExampleTypeRecord> exampleTypes,
                                 RequestMethod[] requestMethods) {
         var operationsMap = pathItem.readOperationsMap();
 
@@ -141,13 +134,14 @@ public class ExamplesOpenApiCustomizer implements OpenApiCustomizer {
 
         for (var exampleType : exampleTypes)
             operations.stream()
-                    .map(operation -> getContents(exampleType, operation))
+                    .map(operation -> ExampleUtilities.getContents(exampleType, operation))
                     .flatMap(Collection::stream)
                     .forEach(content -> injectIntoContent(example, content, exampleType));
     }
 
-    private void injectIntoContent(NamedExample example, Content content, ExampleType exampleType) {
-        for (var mediaTypeValue : getMediaTypes(exampleType, defaultConsumesMediaType, defaultProducesMediaType)) {
+    private void injectIntoContent(NamedExample example, Content content, ExampleTypeRecord exampleType) {
+        for (var mediaTypeValue : ExampleUtilities.getMediaTypes(exampleType, defaultConsumesMediaType,
+                defaultProducesMediaType)) {
             Optional.ofNullable(content.get(mediaTypeValue))
                     .ifPresent(mediaType -> mediaType.addExamples(example.getName(), example));
         }

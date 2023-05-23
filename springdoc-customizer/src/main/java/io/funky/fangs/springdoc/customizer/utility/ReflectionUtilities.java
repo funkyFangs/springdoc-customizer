@@ -57,4 +57,13 @@ public class ReflectionUtilities {
             return null;
         }
     }
+
+    public Class<?> getClassSafely(String className) {
+        try {
+            return Class.forName(className);
+        }
+        catch (ClassNotFoundException ignored) {
+            return null;
+        }
+    }
 }
