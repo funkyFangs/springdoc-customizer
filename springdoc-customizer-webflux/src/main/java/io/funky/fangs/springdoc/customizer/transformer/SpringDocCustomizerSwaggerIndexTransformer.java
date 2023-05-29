@@ -58,7 +58,7 @@ public class SpringDocCustomizerSwaggerIndexTransformer extends SwaggerIndexPage
             //noinspection Convert2Lambda
             return Mono.defer(new Supplier<>() {
                 @Override
-                @SneakyThrows
+                @SneakyThrows // Suppresses the IOException from resource.getInputStream()
                 public Mono<? extends Resource> get() {
                     var document = readFullyAsString(resource.getInputStream());
 
@@ -66,12 +66,25 @@ public class SpringDocCustomizerSwaggerIndexTransformer extends SwaggerIndexPage
                         document = ResourceUtilities.replaceTitle(document, title);
                     }
 
-                    if (largeIconPath != null) {
+                    var replaceLargeIcon = largeIconPath != null;
+                    var replaceSmallIcon = smallIconPath != null;
+
+                    if (replaceLargeIcon) {
                         document = ResourceUtilities.replaceLargeIcon(document, largeIconPath);
+                        if (!replaceSmallIcon) {
+                            document = ResourceUtilities.SMALL_ICON_PATTERN
+                                    .matcher(document)
+                                    .replaceFirst("");
+                        }
                     }
 
-                    if (smallIconPath != null) {
+                    if (replaceSmallIcon) {
                         document = ResourceUtilities.replaceSmallIcon(document, smallIconPath);
+                        if (!replaceLargeIcon) {
+                            document = ResourceUtilities.LARGE_ICON_PATTERN
+                                    .matcher(document)
+                                    .replaceFirst("");
+                        }
                     }
 
                     return Mono.just(new TransformedResource(resource, document.getBytes()));
