@@ -32,6 +32,9 @@ springdoc = '2.1.0'
 # Swagger
 swagger = '2.2.9'
 
+# Tomcat
+tomcat-embed = '10.1.7'
+
 [libraries]
 
 # AssertJ
@@ -63,6 +66,7 @@ spring-boot-starter-test = {group = 'org.springframework.boot', name = 'spring-b
 spring-boot-starter-validation = {group = 'org.springframework.boot', name = 'spring-boot-starter-validation', version.ref = 'spring-boot'}
 spring-boot-starter-web = {group = 'org.springframework.boot', name = 'spring-boot-starter-web', version.ref = 'spring-boot'}
 spring-boot-starter-webflux = {group = 'org.springframework.boot', name = 'spring-boot-starter-webflux', version.ref = 'spring-boot'}
+spring-boot-starter-webmvc = {group = 'org.springframework.boot', name = 'spring-boot-starter-webflux', version.ref = 'spring-boot'}
 spring-web = {group = 'org.springframework', name = 'spring-web', version.ref = 'spring'}
 
 # SpringDoc
@@ -72,6 +76,9 @@ springdoc-openapi-starter-webflux-ui = {group = 'org.springdoc', name = 'springd
 
 # Swagger
 swagger-annotations = {group = 'io.swagger.core.v3', name = 'swagger-annotations', version.ref = 'swagger'}
+
+# Tomcat
+tomcat-embed-core = {group = 'org.apache.tomcat.embed', name = 'tomcat-embed-core', version.ref = 'tomcat-embed'}
 
 [plugins]
 

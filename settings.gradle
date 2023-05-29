@@ -1,3 +1,5 @@
 rootProject.name = 'springdoc-customizer'
-include 'springdoc-customizer'
+include 'springdoc-customizer-common'
 include 'springdoc-customizer-webmvc-demo'
+include 'springdoc-customizer-webmvc'
+include 'springdoc-customizer-webflux'

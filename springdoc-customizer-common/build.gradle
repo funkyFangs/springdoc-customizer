@@ -32,6 +32,9 @@ dependencies {
 
     // SpringDoc
     implementation libs.springdoc.openapi.starter.common
+
+    // Tomcat
+    implementation libs.tomcat.embed.core
 }
 
 test {

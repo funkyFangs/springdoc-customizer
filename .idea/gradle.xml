@@ -9,7 +9,9 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/springdoc-customizer" />
+            <option value="$PROJECT_DIR$/springdoc-customizer-common" />
+            <option value="$PROJECT_DIR$/springdoc-customizer-webflux" />
+            <option value="$PROJECT_DIR$/springdoc-customizer-webmvc" />
             <option value="$PROJECT_DIR$/springdoc-customizer-webmvc-demo" />
           </set>
         </option>
