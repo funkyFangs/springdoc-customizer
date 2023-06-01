@@ -5,9 +5,8 @@ springdoc:
     use-root-path: true
     operationsSorter: 'alpha'
     tagsSorter: 'alpha'
+    title: 'Littlest Pet Shop'
+    large-icon-path: 'bat-large.png'
+    small-icon-path: 'bat-small.png'
   default-consumes-media-type: 'application/json'
   default-produces-media-type: 'application/json'
-  customizer:
-    examples:
-      packages-to-scan:
-        - 'io.funky.fangs.springdoc.customizer.pets.examples'

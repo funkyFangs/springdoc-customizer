@@ -1,0 +1,16 @@
+plugins {
+    alias(libs.plugins.lombok)
+    id 'java-library'
+}
+
+dependencies {
+    // SpringDoc
+    implementation libs.springdoc.openapi.starter.webmvc.ui
+
+    // SpringDoc Customizer
+    api project(':springdoc-customizer-common')
+    annotationProcessor project(':springdoc-customizer-common')
+
+    // Tomcat
+    implementation libs.tomcat.embed.core
+}

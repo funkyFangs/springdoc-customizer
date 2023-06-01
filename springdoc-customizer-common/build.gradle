@@ -1,0 +1,42 @@
+plugins {
+    alias(libs.plugins.lombok)
+}
+
+dependencies {
+    // AssertJ
+    testImplementation libs.assertj.core
+
+    // Guava
+    implementation libs.guava
+
+    // Jakarta
+    implementation libs.jakarta.annotation
+    implementation libs.jakarta.validation
+
+    // JUnit
+    testImplementation libs.junit.jupiter.api
+    testRuntimeOnly libs.junit.jupiter.engine
+    testImplementation libs.junit.jupiter.params
+
+    // Mockito
+    testImplementation libs.mockito.core
+    testImplementation libs.mockito.junit.jupiter
+
+    // SLF4J
+    implementation libs.slf4j.api
+
+    // Spring
+    implementation libs.spring.web
+    implementation libs.spring.boot.autoconfigure
+    annotationProcessor libs.spring.boot.autoconfigure.processor
+
+    // SpringDoc
+    implementation libs.springdoc.openapi.starter.common
+
+    // Tomcat
+    implementation libs.tomcat.embed.core
+}
+
+test {
+    useJUnitPlatform()
+}
