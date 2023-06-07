@@ -20,9 +20,11 @@ import javax.tools.FileObject;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.*;
+import java.util.Map.Entry;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
 import static java.util.Collections.emptyMap;
+import static java.util.stream.Collectors.toUnmodifiableMap;
 import static javax.tools.StandardLocation.CLASS_OUTPUT;
 
 @SupportedAnnotationTypes("io.funky.fangs.springdoc.customizer.annotation.ExampleDetails")
@@ -37,53 +39,62 @@ public class ExamplesProcessor extends AbstractProcessor {
 
     private FileObject examplesResourceFile;
 
-    @Override
-    public synchronized void init(ProcessingEnvironment processingEnv) {
-        super.init(processingEnv);
+    private FileObject getExamplesResourceFile() {
+        if (examplesResourceFile == null) {
+            try {
+                examplesResourceFile = processingEnv.getFiler()
+                        .createResource(CLASS_OUTPUT, getClass().getPackageName(), EXAMPLES_FILE_NAME,
+                                processingEnv.getElementUtils().getTypeElement(getClass().getCanonicalName()));
+            }
+            catch (IOException ioException) {
+                throw new IllegalStateException("Unable to create examples file", ioException);
+            }
+        }
 
-        try {
-            examplesResourceFile = processingEnv.getFiler()
-                    .createResource(CLASS_OUTPUT, getClass().getPackageName(), EXAMPLES_FILE_NAME,
-                            processingEnv.getElementUtils().getTypeElement(getClass().getCanonicalName()));
-        }
-        catch (IOException ioException) {
-            processingEnv.getMessager().printError(ioException.getMessage());
-        }
+        return examplesResourceFile;
     }
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-        // Read map from file
-        Map<String, Map<String, ExampleDetailsRecord>> elements;
-        try {
-            elements = OBJECT_MAPPER.readValue(examplesResourceFile.getCharContent(false).toString(),
-                    EXAMPLES_MAP_TYPE_REFERENCE);
-        }
-        catch (IllegalStateException | IOException exception) {
-            // Map is likely not serialized yet, so create empty one
-            elements = new HashMap<>();
-        }
+        if (!annotations.isEmpty()) {
+            var examplesResourceFile = getExamplesResourceFile();
 
-        // Add fields to map
-        for (var annotation : annotations) {
-            for (var element : roundEnv.getElementsAnnotatedWith(annotation)) {
-                if (element.getModifiers().containsAll(EXAMPLE_MODIFIERS)
-                        && element instanceof VariableElement fieldElement
-                        && fieldElement.getEnclosingElement() instanceof TypeElement classElement) {
-                    var detailsRecord = convertToRecord(fieldElement.getAnnotation(ExampleDetails.class));
+            // Read map from file
+            Map<String, Map<String, ExampleDetailsRecord>> elements;
+            try {
+                elements = OBJECT_MAPPER.readValue(examplesResourceFile.getCharContent(false).toString(),
+                        EXAMPLES_MAP_TYPE_REFERENCE);
+            } catch (IllegalStateException | IOException exception) {
+                // Map is likely not serialized yet, so create empty one
+                elements = new HashMap<>();
+            }
 
-                    elements.computeIfAbsent(classElement.getQualifiedName().toString(), ignored -> new HashMap<>())
-                            .put(fieldElement.getSimpleName().toString(), detailsRecord);
+            var originalState = elements.entrySet()
+                    .stream()
+                    .collect(toUnmodifiableMap(Entry::getKey, entry -> Map.copyOf(entry.getValue())));
+
+            // Add fields to map
+            for (var annotation : annotations) {
+                for (var element : roundEnv.getElementsAnnotatedWith(annotation)) {
+                    if (element.getModifiers().containsAll(EXAMPLE_MODIFIERS)
+                            && element instanceof VariableElement fieldElement
+                            && fieldElement.getEnclosingElement() instanceof TypeElement classElement) {
+                        var detailsRecord = convertToRecord(fieldElement.getAnnotation(ExampleDetails.class));
+
+                        elements.computeIfAbsent(classElement.getQualifiedName().toString(), ignored -> new HashMap<>())
+                                .put(fieldElement.getSimpleName().toString(), detailsRecord);
+                    }
                 }
             }
-        }
 
-        // Write map to file
-        try (var outputStream = examplesResourceFile.openOutputStream()) {
-            outputStream.write(OBJECT_MAPPER.writeValueAsBytes(elements));
-        }
-        catch (IOException ignored) {
-            return false;
+            if (!elements.equals(originalState)) {
+                // Write map to file
+                try (var outputStream = examplesResourceFile.openOutputStream()) {
+                    outputStream.write(OBJECT_MAPPER.writeValueAsBytes(elements));
+                } catch (IOException ignored) {
+                    return false;
+                }
+            }
         }
 
         return true;
@@ -119,12 +130,11 @@ public class ExamplesProcessor extends AbstractProcessor {
 
             return Map.copyOf(result);
         }
-        catch (IOException ignored) {
+        catch (IOException | IllegalArgumentException ignored) {
             return emptyMap();
         }
     }
 
-    @SuppressWarnings("ResultOfMethodCallIgnored") // Method call throws exception to populate class string
     private ExampleDetailsRecord convertToRecord(ExampleDetails details) {
         var targetRecords = new ArrayList<ExampleTargetRecord>();
 
@@ -135,16 +145,20 @@ public class ExamplesProcessor extends AbstractProcessor {
                 var typeRecords = new ArrayList<ExampleTypeRecord>();
 
                 for (var type : method.types()) {
-                    var mediaTypes = List.of(type.mediaTypes());
-                    var responses = List.of(type.responses());
+                    var exampleType = type.value();
 
-                    typeRecords.add(new ExampleTypeRecord(type.value(), mediaTypes, responses));
+                    typeRecords.add(new ExampleTypeRecord(exampleType, List.of(type.mediaTypes()),
+                            switch (exampleType) {
+                                case REQUEST -> null;
+                                case RESPONSE -> List.of(type.responses());
+                            }));
                 }
 
                 methodRecords.add(new ExampleMethodRecord(method.name(), typeRecords));
             }
 
             try {
+                //noinspection ResultOfMethodCallIgnored
                 target.controller();
             }
             catch (MirroredTypeException exception) {
