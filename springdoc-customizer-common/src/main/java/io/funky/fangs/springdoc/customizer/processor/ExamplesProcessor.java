@@ -148,10 +148,7 @@ public class ExamplesProcessor extends AbstractProcessor {
                     var exampleType = type.value();
 
                     typeRecords.add(new ExampleTypeRecord(exampleType, List.of(type.mediaTypes()),
-                            switch (exampleType) {
-                                case REQUEST -> null;
-                                case RESPONSE -> List.of(type.responses());
-                            }));
+                            List.of(type.responses())));
                 }
 
                 methodRecords.add(new ExampleMethodRecord(method.name(), typeRecords));

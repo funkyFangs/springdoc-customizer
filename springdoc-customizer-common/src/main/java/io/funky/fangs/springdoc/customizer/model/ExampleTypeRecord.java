@@ -24,6 +24,7 @@ public record ExampleTypeRecord(Type type, Collection<String> mediaTypes, Collec
                 .map(Set::copyOf)
                 .orElse(emptySet());
         this.responses = Optional.ofNullable(responses)
+                .filter(ignored -> type == Type.RESPONSE)
                 .filter(not(Collection::isEmpty))
                 // Creates an unmodifiable view of an EnumSet for data integrity and performance
                 .map(EnumSet::copyOf)
