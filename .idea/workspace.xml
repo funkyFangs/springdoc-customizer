@@ -4,8 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e3bd0a12-676d-4460-9b1a-405f92e4d2dc" name="Changes" comment="Move project files to .idea folder">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/gradle.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/gradle.yml" afterDir="false" />
+    <list default="true" id="e3bd0a12-676d-4460-9b1a-405f92e4d2dc" name="Changes" comment=":fire: removed outdated test">
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/Build_Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/Run_Build.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <list id="5bebc289-3cde-4699-b29c-4336ed932cad" name="Ignored" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,12 +44,7 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="springdoc-customizer" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build setup" type="c8890929:TasksNode$1" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="springdoc-customizer" type="f1a62948:ProjectNode" />
-                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -53,11 +53,42 @@
       </state>
     </system>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="SC-4-add-icon-customization" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GithubDefaultAccount">
     <option name="defaultAccountId" value="c360f8bc-3434-4db3-a350-b3e0b6e10c46" />
+  </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/.idea/workspace.xml">
+      <ranges>
+        <range start1="6" end1="8" start2="6" end2="15" changelist="e3bd0a12-676d-4460-9b1a-405f92e4d2dc" />
+        <range start1="41" end1="47" start2="48" end2="49" changelist="e3bd0a12-676d-4460-9b1a-405f92e4d2dc" />
+        <range start1="54" end1="54" start2="56" end2="63" changelist="e3bd0a12-676d-4460-9b1a-405f92e4d2dc" />
+        <range start1="56" end1="56" start2="65" end2="70" changelist="e3bd0a12-676d-4460-9b1a-405f92e4d2dc" />
+        <range start1="61" end1="61" start2="75" end2="93" changelist="e3bd0a12-676d-4460-9b1a-405f92e4d2dc" />
+        <range start1="72" end1="79" start2="104" end2="116" changelist="e3bd0a12-676d-4460-9b1a-405f92e4d2dc" />
+        <range start1="80" end1="81" start2="117" end2="118" changelist="e3bd0a12-676d-4460-9b1a-405f92e4d2dc" />
+        <range start1="82" end1="82" start2="119" end2="125" changelist="e3bd0a12-676d-4460-9b1a-405f92e4d2dc" />
+        <range start1="83" end1="83" start2="126" end2="129" changelist="e3bd0a12-676d-4460-9b1a-405f92e4d2dc" />
+        <range start1="86" end1="86" start2="132" end2="163" changelist="e3bd0a12-676d-4460-9b1a-405f92e4d2dc" />
+        <range start1="90" end1="90" start2="167" end2="168" changelist="5bebc289-3cde-4699-b29c-4336ed932cad" />
+        <range start1="116" end1="117" start2="194" end2="230" changelist="5bebc289-3cde-4699-b29c-4336ed932cad" />
+        <range start1="145" end1="146" start2="258" end2="271" changelist="5bebc289-3cde-4699-b29c-4336ed932cad" />
+      </ranges>
+    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -70,24 +101,47 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/funky/Documents/IntelliJ/springdoc-customizer&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "develop",
+    "jdk.selected.JAVA_MODULE": "graalvm-19",
+    "last_opened_file_path": "C:/Users/funky/Documents/IntelliJ/springdoc-customizer/.idea/runConfigurations",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\funky\Documents\IntelliJ\springdoc-customizer\.idea\runConfigurations" />
+      <recent name="C:\Users\funky\Documents\IntelliJ\springdoc-customizer\springdoc-customizer-webmvc-demo\src\main\resources" />
+      <recent name="C:\Users\funky\Documents\IntelliJ\springdoc-customizer\springdoc-customizer-webflux\src\main\resources\META-INF\spring" />
+      <recent name="C:\Users\funky\Documents\IntelliJ\springdoc-customizer\springdoc-customizer-webmvc\src\main\resources\META-INF\spring" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\funky\Documents\IntelliJ\springdoc-customizer\springdoc-customizer-common\src\main\resources\META-INF\spring" />
+      <recent name="C:\Users\funky\Documents\IntelliJ\springdoc-customizer\springdoc-customizer-webmvc-demo\src\main\resources\static" />
+      <recent name="C:\Users\funky\Documents\IntelliJ\springdoc-customizer\springdoc-customizer-webmvc-demo\src\main\resources" />
       <recent name="C:\Users\funky\Documents\IntelliJ\springdoc-customizer\.idea" />
     </key>
+  </component>
+  <component name="RunManager" selected="Gradle.Run Clean Build">
+    <list>
+      <item itemvalue="Gradle.Run Build" />
+      <item itemvalue="Gradle.Run Clean Build" />
+      <item itemvalue="Gradle.WebMVC Demo Application" />
+      <item itemvalue="Gradle.Run Tests" />
+    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="e3bd0a12-676d-4460-9b1a-405f92e4d2dc" name="Changes" comment="" />
+      <changelist id="5bebc289-3cde-4699-b29c-4336ed932cad" name="Ignored" comment="" />
       <created>1682641335077</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -114,7 +168,66 @@
       <option name="project" value="LOCAL" />
       <updated>1682899425761</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary=":heavy_plus_sign: SC-4: split projects into webflux/webmvc and add dependencies">
+      <created>1685392113988</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1685392113988</updated>
+    </task>
+    <task id="LOCAL-00005" summary=":sparkles: SC-4: add transformers for swagger UI customization">
+      <created>1685392217455</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1685392217455</updated>
+    </task>
+    <task id="LOCAL-00006" summary=":truck: SC-4: add resources for demo">
+      <created>1685392242335</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1685392242335</updated>
+    </task>
+    <task id="LOCAL-00007" summary=":bug: SC-4: add icon replacement for single size on webflux">
+      <created>1685392965460</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1685392965460</updated>
+    </task>
+    <task id="LOCAL-00008" summary=":zap: improved annotation processor performance">
+      <created>1686103319306</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1686103319306</updated>
+    </task>
+    <task id="LOCAL-00009" summary=":zap: added memo">
+      <option name="closed" value="true" />
+      <created>1687888140832</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1687888140832</updated>
+    </task>
+    <task id="LOCAL-00010" summary=":zap: memoized examples map construction">
+      <option name="closed" value="true" />
+      <created>1687888157683</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1687888157683</updated>
+    </task>
+    <task id="LOCAL-00011" summary=":fire: removed outdated test">
+      <option name="closed" value="true" />
+      <created>1687888174734</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1687888174734</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -143,7 +256,22 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Create IntelliJ project files" />
     <MESSAGE value="Move project files to .idea folder" />
-    <option name="LAST_COMMIT_MESSAGE" value="Move project files to .idea folder" />
+    <MESSAGE value=":heavy_plus_sign: SC-4: split projects into webflux/webmvc and add dependencies" />
+    <MESSAGE value=":sparkles: SC-4: add transformers for swagger UI customization" />
+    <MESSAGE value=":truck: SC-4: add resources for demo" />
+    <MESSAGE value=":bug: SC-4: add icon replacement for single size on webflux" />
+    <MESSAGE value=":zap: improved annotation processor performance" />
+    <MESSAGE value=":art: improved logic flow of record conversion" />
+    <MESSAGE value=":zap: memoized examples map construction" />
+    <MESSAGE value=":fire: removed outdated test" />
+    <option name="LAST_COMMIT_MESSAGE" value=":fire: removed outdated test" />
+  </component>
+  <component name="XDebuggerManager">
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="java.util.HashMap$Node" memberName="value" />
+      </pinned-members>
+    </pin-to-top-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
