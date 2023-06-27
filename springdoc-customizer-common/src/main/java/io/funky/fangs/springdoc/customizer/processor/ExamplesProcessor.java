@@ -3,6 +3,7 @@ package io.funky.fangs.springdoc.customizer.processor;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Suppliers;
 import com.google.common.collect.Sets;
 import io.funky.fangs.springdoc.customizer.annotation.ExampleDetails;
 import io.funky.fangs.springdoc.customizer.model.ExampleDetailsRecord;
@@ -21,6 +22,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.function.Supplier;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
 import static java.util.Collections.emptyMap;
@@ -36,6 +38,7 @@ public class ExamplesProcessor extends AbstractProcessor {
     private static final TypeReference<Map<String, Map<String, ExampleDetailsRecord>>> EXAMPLES_MAP_TYPE_REFERENCE = new TypeReference<>() {};
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper()
             .setSerializationInclusion(NON_EMPTY);
+    private static final Supplier<Map<Field, ExampleDetailsRecord>> EXAMPLES_MAP_SUPPLIER = Suppliers.memoize(ExamplesProcessor::constructExamplesMap);
 
     private FileObject examplesResourceFile;
 
@@ -100,7 +103,7 @@ public class ExamplesProcessor extends AbstractProcessor {
         return true;
     }
 
-    public static Map<Field, ExampleDetailsRecord> getExampleFields() {
+    private static Map<Field, ExampleDetailsRecord> constructExamplesMap() {
         try {
             var examplesMap = OBJECT_MAPPER.readValue(ExamplesProcessor.class.getResource(EXAMPLES_FILE_NAME),
                     EXAMPLES_MAP_TYPE_REFERENCE);
@@ -133,6 +136,10 @@ public class ExamplesProcessor extends AbstractProcessor {
         catch (IOException | IllegalArgumentException ignored) {
             return emptyMap();
         }
+    }
+
+    public static Map<Field, ExampleDetailsRecord> getExampleFields() {
+        return EXAMPLES_MAP_SUPPLIER.get();
     }
 
     private ExampleDetailsRecord convertToRecord(ExampleDetails details) {
